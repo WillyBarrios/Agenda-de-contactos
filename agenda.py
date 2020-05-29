@@ -1,4 +1,4 @@
-
+#Este elemento es creado por Willy barrios
 from tkinter import ttk
 
 from tkinter import *
@@ -28,12 +28,13 @@ class contact:
         Label(frame, text = 'numero: ').grid(row = 2, column = 0)
         self.num = Entry(frame)
         self.num.grid(row = 2, column = 1)
+        #
 
         # Button Add contacto 
         ttk.Button(frame, text = 'Guardar', command = self.add_contacto).grid(row = 3, columnspan = 2, sticky = W + E)
 
         # Output Messages 
-        self.message = Label(text = '', fg = 'red')
+        self.message = Label(text = '', fg = 'gold')
         self.message.grid(row = 3, column = 0, columnspan = 2, sticky = W + E)
 
         # Table
@@ -45,7 +46,8 @@ class contact:
         # Buttons
         ttk.Button(text = 'BORRAR', command = self.delete_contacto).grid(row = 5, column = 0, sticky = W + E)
         ttk.Button(text = 'EDITAR', command = self.edit_contacto).grid(row = 5, column = 1, sticky = W + E)
-
+        ttk.Button(frame, text = 'Info de la version',command = self.information).grid(row = 4,  columnspan = 2,sticky = W + E)
+        ttk.Button(frame, text='Buscar', command =self.search).grid(row = 5,  columnspan = 2,sticky = W + E)
         # Filling the Rows
         self.get_names()
 
@@ -137,6 +139,25 @@ class contact:
         self.edit_wind.destroy()
         self.message['text'] = 'Contacto {} Actualizado'.format(name)
         self.get_names()
+    def information(self):
+        self.message['text']= '[version 1.0] in socials @R_Barrios_'
+    def search(self):
+        numero=self.num.get()
+        if (numero==""):
+          self.message['text']='Buscar","Inserta identificador'
+        else:
+            tupla=busca(numero)
+            name.set(tupla[0])
+            num.set(tupla[1])
+            self.message['text']= 'Buscar","Contacto encontrado"'
+        try:
+            consulta.execute("SELECT * FROM contacto WHERE num="+str(numero))
+            for i in consulta:
+                name=i[1]
+                num=i[2]
+                return (name,num)
+        except:
+            self.message['text']= 'Buscar","Error al buscar'   
 
 if __name__ == '__main__':
     window = Tk()
