@@ -34,7 +34,7 @@ class contact:
         ttk.Button(frame, text = 'Guardar', command = self.add_contacto).grid(row = 3, columnspan = 2, sticky = W + E)
 
         # Output Messages 
-        self.message = Label(text = '', fg = 'gold')
+        self.message = Label(text = '', fg = 'black')
         self.message.grid(row = 3, column = 0, columnspan = 2, sticky = W + E)
 
         # Table
